@@ -5,14 +5,15 @@
           Noteballs
         </div>
 
-            <a role="button" @click.prevent="showMobileNav = !showMobileNav" class="navbar-burger " :class="{ 'is-active' : showMobileNav }" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" @click.prevent="showMobileNav = !showMobileNav" class="navbar-burger " :class="{ 'is-active' : showMobileNav }" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" ref="navbarBurgerRef">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu " :class="{ 'is-active' : showMobileNav }">
+      <div id="navbarBasicExample" class="navbar-menu " :class="{ 'is-active' : showMobileNav }"
+      ref="navbarMenuRef">
        
 
         <div class="navbar-end">
@@ -29,12 +30,28 @@
 </template>
 <script setup>
 import { ref } from 'vue';
-
+import  { onClickOutside } from '@vueuse/core'
+import { PatchFlagNames } from '@vue/shared';
 /**
  * mobile nav
  */
 const showMobileNav = ref(false)
+/**
+ * click outside to close
+ */
+  const navbarMenuRef = ref(null) 
+  const navbarBurgerRef = ref(null)
+
+  onClickOutside(navbarMenuRef,(event) => {
+    showMobileNav.value = false
+  },{
+    ignore: [navbarBurgerRef]
+  })
 </script>
+
+
+
+
 <style>
 @media (max-width: 1023px) {
   .navbar-menu {
