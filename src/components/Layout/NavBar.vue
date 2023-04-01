@@ -16,11 +16,11 @@
        
 
         <div class="navbar-end">
-          <RouterLink to="/stats" active-class="is-active" class="navbar-item">
+          <RouterLink to="/stats" @click="showMobileNav = false" active-class="is-active" class="navbar-item">
             Stats
           </RouterLink>
 
-          <RouterLink to="/" active-class="is-active" class="navbar-item">
+          <RouterLink to="/" @click="showMobileNav = false" active-class="is-active" class="navbar-item">
             Notes 
           </RouterLink>
         </div>

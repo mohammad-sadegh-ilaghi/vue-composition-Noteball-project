@@ -10,8 +10,8 @@
             </div>
         </div>
         <footer class="card-footer">
-            <a href="#"  class="card-footer-item">Edit</a>
-            <a href="#" @click.prevent="handleDeleteClicked()" class="card-footer-item">Delete</a>
+            <RouterLink :to="`/editNote/${ note.id }`" href="#"  class="card-footer-item">Edit</RouterLink>
+            <a href="#" @click.prevent="storeNotes.deleteNote(note.id)" class="card-footer-item">Delete</a>
         </footer>
     </div>
 </template> 
@@ -21,31 +21,31 @@
  * imports
  */
  import { computed } from '@vue/reactivity';
-
+import { useStoreNotes } from '../../stores/storeNote';
 /**
  * props
  */
     const props =defineProps({
         note: {
-            type: Object,
-            required: true
+            type: Object,  
+            required: true  
         }
     })
 /**
- * emits
+ * store
  */
-    const emits = defineEmits(['deleteClicked'])
+    const storeNotes = useStoreNotes()
 /**
  * computed
  */
     const charactersLentgh = computed(()=>
     {
-        return props.note.content.replace(' ', '').replace('\n', '').length
+        return props.note.content.length
     }) 
 /**
  * handle delete clicked
  */
-    const handleDeleteClicked = () => {
-        emits('deleteClicked', props.note.id)
-    }
+    // const handleDeleteClicked = () => {
+    //     emits('deleteClicked', props.note.id)
+    // }
 </script>
